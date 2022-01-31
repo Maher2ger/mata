@@ -1,14 +1,32 @@
+<mat-card>
+  <form (submit)="onAddPost(postForm)"
+        #postForm="ngForm">
 
 
-  <mat-card>
-    <form class="example-form">
-      <mat-form-field appearance="fill">
-        <mat-label>Textarea</mat-label>
-        <textarea matInput [name]="'textarea'" [(ngModel)]="enteredValue"></textarea>
-      </mat-form-field>
-      <br>
-      <button mat-button color="primary" (click)="onAddPost()">save</button>
-    </form>
-  </mat-card>
+    <mat-form-field>
+          <mat-label>Post Title</mat-label>
+          <input
+		          matInput
+		          type="text"
+		          name="postTitle"
+		          placeholder="Post Title"
+		          ngModel>
+    </mat-form-field>
 
-  <p>{{newPost}}</p>
+    <mat-form-field appearance="fill">
+      <mat-label>Enter your Post Content</mat-label>
+      <textarea matInput
+                type="text"
+                placeholder="Post Content"
+                name="postContent" ngModel>
+      </textarea>
+    </mat-form-field>
+
+    <br>
+    <button mat-button
+            type="submit"
+            color="primary">save
+    </button>
+  </form>
+</mat-card>
+
