@@ -9,11 +9,17 @@ import {PostService} from "../services/posts.service";
 })
 export class PostListComponent implements OnInit {
   posts: Post[] = [];
+  isLoading: boolean = false;
 
   constructor(public postService: PostService) {}   //the keyword public creates an instance of PostService as local var. => public = const postService = PostService
 
   ngOnInit() {
+    this.isLoading = true;
     this.posts = this.postService.getPosts();
+  }
+
+  onDelete(postId: string) {
+    this.postService.deletePost(postId);
   }
 
 }
