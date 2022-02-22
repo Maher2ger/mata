@@ -1,6 +1,6 @@
 <mat-card>
 	<mat-spinner *ngIf="isLoading"></mat-spinner>
-  <form (submit)="onSavePost(postForm)" #postForm="ngForm" *ngIf="!isLoading">
+  <form [formGroup]="postForm" (submit)="onSavePost()"  *ngIf="!isLoading">
 
 
     <mat-form-field>
@@ -10,9 +10,13 @@
 		          type="text"
 		          name="postTitle"
 		          placeholder="Post Title"
-		          required
-		          ngModel>
+		          formControlName="postTitle"
+		          required>
     </mat-form-field>
+	  <div class="">
+		  <button mat-stroked-button type="button" (click)="filePicker.click()">upload image</button>
+		  <input type="file" #filePicker>
+	  </div>
 
     <mat-form-field appearance="fill">
       <mat-label>Enter your Post Content</mat-label>
@@ -20,8 +24,8 @@
                 type="text"
                 placeholder="Post Content"
                 name="postContent"
-                required
-                ngModel>
+                formControlName="postContent"
+                required>
       </textarea>
     </mat-form-field>
 
