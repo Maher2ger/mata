@@ -18,10 +18,13 @@ export class PostCreateComponent implements OnInit {
   private postId:any;
   public post: any;
   isLoading = false;
+  imagePreview: any;
+
 
   postForm = new FormGroup({
     postTitle: new FormControl(null, {validators:[Validators.required, Validators.minLength(3)]}),
-    postContent: new FormControl(null, {validators:[Validators.required]})
+    postContent: new FormControl(null, {validators:[Validators.required]}),
+      postImage: new FormControl(null, {validators:[Validators.required]})
   })
 
 
@@ -43,8 +46,10 @@ export class PostCreateComponent implements OnInit {
         this.post = this.postService.getPost(this.postId);
         this.isLoading = false;
         this.postForm.setValue(
-            {postTitle: this.post.title,
+            {
+              postTitle: this.post.title,
               postContent: this.post.content,
+              postImage: this.post.imgPath
             });
 
 
@@ -59,8 +64,29 @@ export class PostCreateComponent implements OnInit {
   onSavePost() {
     this.isLoading = true;
     if (this.mode === 'create') {
-      this.postService.addPost(this.postForm.value.postTitle, this.postForm.value.postContent);
+      this.postService.addPost(
+          this.postForm.value.postTitle,
+          this.postForm.value.postContent,
+          this.postForm.value.postImage);
     } else {
-      this.postService.updatePost(this.postId, this.postForm.value.postTitle, this.postForm.value.postContent);
-    }}
+      this.postService.updatePost(
+          this.postId,
+          this.postForm.value.postTitle,
+          this.postForm.value.postContent,
+          this.postForm.value.postImage);
+    }
+  }
+
+  onFilePicked(event: Event) {
+      // @ts-ignore
+    const file = (event.target as HTMLInputElement).files[0];
+    this.postForm.patchValue({postImage: file});
+    this.postForm.get('postImage')?.updateValueAndValidity();
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = reader.result;
+    }
+    reader.readAsDataURL(file);
+  }
+
 }

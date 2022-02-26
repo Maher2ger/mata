@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 
 //// DB
 const mongoose = require('mongoose');
@@ -23,6 +24,10 @@ const app = express();
 mongoose.connect("mongodb+srv://maher2:ababab@cluster0.rtgkm.mongodb.net/mata?retryWrites=true&w=majority")
     .then(() => console.log('Mongodb connected successfully!'))
     .catch(err => console.log(err));
+
+//public media
+app.use("/images",express.static(path.join('backend/images')));
+
 
 ///////////////////////// MIDDLEWARES ///////////////////////////////
 app.use(bodyParser.json());

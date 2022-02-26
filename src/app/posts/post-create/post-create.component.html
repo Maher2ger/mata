@@ -15,7 +15,17 @@
     </mat-form-field>
 	  <div class="">
 		  <button mat-stroked-button type="button" (click)="filePicker.click()">upload image</button>
-		  <input type="file" #filePicker>
+		  <input
+				  type="file"
+				  #filePicker
+				  (change)="onFilePicked($event)"
+				  name="postImage">
+	  </div>
+
+	  <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview">
+		  <img
+				  [src]="imagePreview"
+				  [alt]="postForm.value.title">
 	  </div>
 
     <mat-form-field appearance="fill">
