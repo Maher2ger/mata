@@ -1,10 +1,12 @@
-# See http://help.github.com/ignore-files/ for more about ignoring files.
+    # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # Compiled output
 /dist
 /tmp
 /out-tsc
 /bazel-out
+/backend/images/
+backend/images
 
 # Node
 /node_modules
@@ -40,3 +42,4 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+

@@ -1,9 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { Post } from '../models/post.model'
 import {PostService} from "../services/posts.service";
 
 //paginator Imports
-import {PageEvent} from '@angular/material/paginator';  //Object, that hold some infos about the page
+import {PageEvent} from '@angular/material/paginator';
 @Component({
   selector: 'app-post-list',
   templateUrl: './post-list.component.html',
@@ -14,7 +14,7 @@ export class PostListComponent implements OnInit {
   isLoading: boolean = false;
 
   //Paginator Vars
-  postsPerPage = 10;
+  postsPerPage = 3;
   pageSizeOptions = [1,2,5,10];
   currentPage = 1;
   public totalPosts: number = 0;
@@ -23,40 +23,35 @@ export class PostListComponent implements OnInit {
 
   ngOnInit() {
     this.isLoading = true
-
-    this.postService.getPosts(this.postsPerPage, 1)
-        .then(data => {
-            this.posts = data.posts;
-            this.totalPosts = data.numberOfPosts;
-        });
-
-
-
-    /*
-    let data = this.postService.getPosts(this.postsPerPage, 1);
-    this.totalPosts = data.numberOfPosts;
-    this.posts = data.posts;
-
-     */
-
+    this.refresh(this.postsPerPage, 1);
   }
 
   onDelete(postId: string) {
     this.postService.deletePost(postId);
+    this.refresh(this.postsPerPage, this.currentPage);
+
+
   }
 
   //pagination change methode
   onChangedPage(pageData: PageEvent) {
-    console.log(pageData);
     this.isLoading = true;
     this.currentPage = pageData.pageIndex+1;
     this.postsPerPage = pageData.pageSize;
-      console.log('current page: '+ this.currentPage);
-    this.postService.getPosts(this.postsPerPage, this.currentPage)
-        .then(data => {
-          this.posts = data.posts;
-          this.totalPosts = data.numberOfPosts;
-        });
+    this.refresh(this.postsPerPage, this.currentPage);
 
+
+  }
+
+  refresh(postsPerPage:number, currentPage:number) {
+      this.postService.getPosts(postsPerPage, currentPage)
+          .then(data => {
+              this.posts.length = 0;
+              for (let post of data.posts) {
+                  this.posts.push(post);
+              }
+              this.totalPosts = data.numberOfPosts;
+              this.isLoading = false;
+          });
   }
 }
