@@ -28,7 +28,7 @@ export class PostListComponent implements OnInit {
 
   onDelete(postId: string) {
     this.postService.deletePost(postId);
-    this.refresh(this.postsPerPage, this.currentPage);
+    this.refresh(this.postsPerPage,1);
 
 
   }

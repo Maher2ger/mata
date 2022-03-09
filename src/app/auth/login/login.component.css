@@ -1,0 +1,14 @@
+ul {
+    display: flex;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+mat-card {
+    width: 40%;
+    left: 35%;
+    top: 5em;
+}
+

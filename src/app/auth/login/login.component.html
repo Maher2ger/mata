@@ -1,0 +1,34 @@
+<mat-card>
+  <form>
+	<mat-form-field>
+          <mat-label>E-Mail Address:</mat-label>
+          <input
+		          matInput
+		          type="email"
+		          name="uemail"
+		          placeholder="Email address"
+		          formControlName="uemail"
+		          required>
+    </mat-form-field>
+
+	<br>
+
+
+    <mat-form-field appearance="fill">
+      <mat-label>Password:</mat-label>
+      <input matInput
+             type="password"
+             placeholder="Enter your password"
+             name="upassword"
+             formControlName="upassword"
+             required>
+    </mat-form-field>
+
+    <br>
+    <button mat-button
+            type="submit"
+            color="primary">login
+    </button>
+  </form>
+</mat-card>
+

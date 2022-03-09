@@ -31,6 +31,8 @@ import { PostCreateComponent } from './posts/post-create/post-create.component';
 import { HeaderComponent } from './header/header/header.component';
 import { PostListComponent } from './posts/post-list/post-list.component';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import { LoginComponent } from './auth/login/login.component';
+import { SignupComponent } from './auth/signup/signup.component';
 
 
 
@@ -40,7 +42,9 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     AppComponent,
     PostCreateComponent,
     HeaderComponent,
-    PostListComponent
+    PostListComponent,
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +60,8 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     MatExpansionModule,
     HttpClientModule,
     MatProgressSpinnerModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
