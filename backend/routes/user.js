@@ -57,7 +57,8 @@ router.post('/login', (req, res, next) => {
                                 )
                                 res.status(200).json({
                                     message: 'jwt token created successfully',
-                                    token: token
+                                    token: token,
+                                    expiresIn: 3600
                                 })
                             } else {
                                 res.status(500).json({
