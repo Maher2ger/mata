@@ -1,0 +1,2 @@
+- moongose-unique-validator: we use this package to add some validation logic to moongose
+- jws (jsonwebtoken): a package to generate sessions for our single web application. Since we can not use the traditional cookies and session with SPA

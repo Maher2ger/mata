@@ -1,5 +1,5 @@
 <mat-card>
-  <form>
+  <form (submit)="onLogin(loginForm)" #loginForm="ngForm">
 	<mat-form-field>
           <mat-label>E-Mail Address:</mat-label>
           <input
@@ -7,8 +7,10 @@
 		          type="email"
 		          name="uemail"
 		          placeholder="Email address"
-		          formControlName="uemail"
-		          required>
+		          #emailInput = "ngModel"
+		          ngModel
+		          required
+		          email>
     </mat-form-field>
 
 	<br>
@@ -20,7 +22,8 @@
              type="password"
              placeholder="Enter your password"
              name="upassword"
-             formControlName="upassword"
+             ngModel
+             #passwordInput="ngModel"
              required>
     </mat-form-field>
 

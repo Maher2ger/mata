@@ -10,7 +10,9 @@ export class PostService {
     public posts: Post[] = [];
     public numberOfPosts: number = 0;
 
-    constructor(private http: HttpClient, private router: Router) {}
+    constructor(private http: HttpClient,
+                private router: Router,
+                ) {}
 
     getPosts(postsPerPage: number, currentPage: number) {
         this.posts.length = 0;

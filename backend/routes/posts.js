@@ -1,6 +1,7 @@
 const express = require('express');
 const Post = require('../db/models/post');
 const multer = require('multer');   // this module needed to handle images
+const checkAuth = require('../middlewares/check-auth.middleware');
 
 
 //multer config.
@@ -32,7 +33,7 @@ const router = express.Router();
 
 
 
-router.post('', multer({storage: storage}).single('image') ,(req, res) => {
+router.post('',checkAuth, multer({storage: storage}).single('image') ,(req, res) => {
     console.log('Post requested to add a new post');
     const url = req.protocol + '://' + req.get('host');
     const post = new Post({
@@ -83,7 +84,7 @@ router.get('',(req, res) => {
 
 });
 
-router.delete('/:id', (req , res ) => {
+router.delete('/:id',checkAuth, (req , res ) => {
     console.log('Delete requested to delete the Post with Id: '+ req.params.id);
 
     Post.deleteOne({
@@ -95,7 +96,7 @@ router.delete('/:id', (req , res ) => {
         )
 });
 
-router.put("/:id" , multer({storage: storage}).single('image') ,(req, res) => {
+router.put("/:id" ,checkAuth, multer({storage: storage}).single('image') ,(req, res) => {
     console.log('Put requested to edit post');
 
     const url = req.protocol + '://' + req.get('host');
