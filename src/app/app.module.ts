@@ -18,7 +18,6 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 // Import Services
-import { PostService } from './posts/services/posts.service';
 
 // Import Modules
 import { AppRoutingModule} from './app.routing.module';
@@ -34,6 +33,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
+import { DashboardComponent } from './auth/components/dashboard/dashboard.component';
 
 
 
@@ -45,7 +45,8 @@ import { AuthInterceptor } from './auth/auth.interceptor';
     HeaderComponent,
     PostListComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

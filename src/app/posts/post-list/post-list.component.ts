@@ -24,6 +24,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   pageSizeOptions = [1,2,5,10];
   currentPage = 1;
   public totalPosts: number = 0;
+  userId!:string|null;
 
 
   constructor(public postService: PostService,
@@ -38,6 +39,7 @@ export class PostListComponent implements OnInit, OnDestroy {
             this.userIsAuthenticated = isAuthenticated;
         }
     );
+    this.userId = this.authService.getUserId();
   }
 
   onDelete(postId: string) {

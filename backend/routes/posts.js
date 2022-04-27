@@ -34,12 +34,12 @@ const router = express.Router();
 
 
 router.post('',checkAuth, multer({storage: storage}).single('image') ,(req, res) => {
-    console.log('Post requested to add a new post');
     const url = req.protocol + '://' + req.get('host');
     const post = new Post({
         title: req.body.title,
         content: req.body.content,
         imgPath: url+'/images/'+ req.file.filename,
+        creator: req.userData.userId,
     });                //we cannot read the req.body without importing the body parser
     post.save()
         .then((createdPost) => {
@@ -85,13 +85,18 @@ router.get('',(req, res) => {
 });
 
 router.delete('/:id',checkAuth, (req , res ) => {
-    console.log('Delete requested to delete the Post with Id: '+ req.params.id);
-
     Post.deleteOne({
-        _id: req.params.id
+        _id: req.params.id,
+        creator: req.userData.userId
     })
-        .then(() => {
+        .then((result) => {
+            console.log(result);
+            if (result.deletedCount > 0) {
                 res.status(200).json({message: req.params.id + ' deleted successfully'});
+            } else {
+                res.status(401).json({message:'Deleting failed! not Authorized'});
+            }
+
             }
         )
 });
@@ -115,16 +120,22 @@ router.put("/:id" ,checkAuth, multer({storage: storage}).single('image') ,(req, 
             _id: req.params.id,
             title: req.body.title,
             content:req.body.content,
+
         })
     }
 
 
     Post.updateOne(
         {
-            _id: req.params.id
+            _id: req.params.id,
+            creator: req.userData.userId,
         }, post)
         .then((result) => {
-            res.status(200).json({message:'updated successfully'});
+            if (result.modifiedCount > 0) {
+                res.status(200).json({message:'updated successfully'});
+            } else {
+                res.status(200).json({message:'updating failed'});
+            }
         })
         .catch(err => {console.log(err);});
 })

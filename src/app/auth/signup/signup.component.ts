@@ -23,7 +23,6 @@ export class SignupComponent implements OnInit {
         form.value.uname,
         form.value.upassword,
         form.value.uemail);
-
   }
 
 

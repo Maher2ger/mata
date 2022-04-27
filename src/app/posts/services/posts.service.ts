@@ -1,8 +1,8 @@
 import { Post } from '../models/post.model';
 import {HttpClient} from '@angular/common/http';
 import { Injectable } from "@angular/core";
-import {map} from 'rxjs/operators';
-import {Router} from '@angular/router';
+import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 
@@ -27,7 +27,8 @@ export class PostService {
                                     title: post.title,
                                     content: post.content,
                                     id: post._id,
-                                    imgPath: post.imgPath
+                                    imgPath: post.imgPath,
+                                    creator: post.creator
                                 }
                             }),
                             numberOfPosts: postData.numberOfPosts
@@ -59,7 +60,7 @@ export class PostService {
 
         this.http.post<{message: string, post: Post}>('http://localhost:3000/api/posts', postData)
             .subscribe((response) => {
-                    const post: Post = {
+                    const post: Post | any = {
                     id:response.post.id,
                     title: title,
                     content: content,
@@ -88,7 +89,7 @@ export class PostService {
         return {posts: this.posts, numberOfPosts: this.numberOfPosts};
     }
     updatePost(id:string, title:string, content:string, image: File | string) {
-        let postData: Post | FormData;
+        let postData: Post | FormData | any;
         if (typeof image === 'object') {
             postData = new FormData();
             postData.append('title', title);
@@ -105,6 +106,7 @@ export class PostService {
 
         this.http.put('http://localhost:3000/api/posts/'+id, postData)
             .subscribe((response)=>{
+                console.log(response);
                 this.router.navigate(['/']);
             })
 
